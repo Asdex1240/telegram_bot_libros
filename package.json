@@ -1,0 +1,16 @@
+{
+  "name": "telegram",
+  "version": "1.0.0",
+  "description": "Bot de libros",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Asdex Technologies",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^9.9.3",
+    "telebot": "^1.4.1"
+  }
+}
