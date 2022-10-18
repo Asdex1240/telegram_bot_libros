@@ -1,4 +1,6 @@
-import { initializeApp } from 'firebase/app';
+const firebase = require('firebase/app');
+
+const firestore = require('firebase/firestore/lite');
 
 const firebaseConfig = {
     apiKey: "AIzaSyDyL7OdbKkWWlWxHrOv8hgDUPKykCe-VPk",
@@ -10,8 +12,7 @@ const firebaseConfig = {
     measurementId: "G-Y9PG7RD52F"
 }
 
-const app = initializeApp(firebaseConfig)
+const app = firebase.initializeApp(firebaseConfig)
+const db = firestore.getFirestore(app)
 
-module.exports = {
-    app
-}
+module.exports = { app, db }

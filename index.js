@@ -1,6 +1,9 @@
-const telebot = require('telebot');
-const CONSTANTS = require('./constants');
-
+//const telebot = require('telebot');
+//const CONSTANTS = require('./keys/constants');
+const app = require('./keys/apikeyfirebase');
+const db = require('./keys/apikeyfirebase');
+const { bookList } = require('./firebase/firestore');
+/*
 const bot = new telebot({
     token: CONSTANTS.telegram_token, // Required. Telegram Bot API token.
 });
@@ -19,3 +22,13 @@ bot.on(["/help"], (msg) => {
 });
 
 bot.start();
+*/
+
+//console.log(db)
+bookList(db.db).then((books) => {   
+    books.forEach(book => {
+        console.log(book.titulo);
+        console.log(book.autor);
+        console.log(book.url);
+    });
+});
