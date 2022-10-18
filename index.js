@@ -24,7 +24,6 @@ bot.on(["/help"], (msg) => {
 bot.start();
 */
 
-//console.log(db)
 bookList(db.db).then((books) => {   
     books.forEach(book => {
         console.log(book.titulo);
