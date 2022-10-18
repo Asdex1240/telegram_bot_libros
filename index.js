@@ -24,6 +24,8 @@ bot.on(["/help"], (msg) => {
 bot.start();
 */
 
+
+// Aqui obtengo la lista de libros 
 bookList(db.db).then((books) => {   
     books.forEach(book => {
         console.log(book.titulo);
