@@ -8,7 +8,7 @@ const bot = new telebot({
 });
 
 bot.on(["/start"], (msg) => {
-    bot.sendMessage(msg.from.id, `Hola! ${msg.chat.username}, soy tu bot de libros. \n /help para ver los comandos.`);
+    bot.sendMessage(msg.from.id, `Hola! ${msg.chat.username}, soy tu bot de libros.\n/help para ver los comandos.`);
 });
 
 bot.on(["/help"], (msg) => {
