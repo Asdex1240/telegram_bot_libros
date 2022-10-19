@@ -21,13 +21,26 @@ bot.on(["/help"], (msg) => {
 });
 
 bot.on(["/buscar"], (msg) =>{
-    bookList(app.db).then((books) =>{
-        books.forEach(book =>{
-            bot.sendMessage(msg.from.id,
-                `Nombre: ${book.titulo}\nAutor: ${book.autor}\nEnlace: ${book.url}\n`            
-            )
-        })
-    })
+    
+    bot.sendMessage(msg.from.id, "¿Que genero de libro buscas?").then(() => {
+        bot.on('text', (msg) => {
+            const genero = msg.text;
+            bot.sendMessage(msg.from.id, "¿Que autor buscas?").then(() => {
+                bot.on('text', (msg) => {
+                    const autor = msg.text;
+                    bookList(app.db, genero, autor).then((books) =>{
+                        books.forEach(book =>{
+                            bot.sendMessage(msg.from.id,
+                                `Nombre: ${book.titulo}\nAutor: ${book.autor}\n`            
+                            )
+                        })
+                    })
+                });
+            });
+        });
+    }).catch(e => console.log(e));   
+
+    
 })
 
 bot.on(["/generos"], (msg)=>{
@@ -37,6 +50,11 @@ bot.on(["/generos"], (msg)=>{
         })
     })
 })
+
+bot.on(/^\/say (.+)$/, (msg, props) => {
+    const text = props.match[1];
+    return bot.sendMessage(msg.from.id, text, { replyToMessage: msg.message_id });
+});
 
 bot.start();
 

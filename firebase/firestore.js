@@ -4,8 +4,8 @@ const { collection, getDocs,  } = require('firebase/firestore/lite');
 
 
 //Buscar por medio de genero y autor
-const bookList = async(db) => {
-    const booksCol = collection(db, `biblioteca/Matematicas/Lehmann`);
+const bookList = async(db, genero, autor) => {
+    const booksCol = collection(db, `biblioteca/${genero}/${autor}`);
     const bookSnapshot = await getDocs(booksCol);
     const bookList = bookSnapshot.docs.map(doc => doc.data());
     return bookList;
