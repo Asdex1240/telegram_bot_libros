@@ -17,20 +17,14 @@ const generoList = async(db) => {
     return genList
 }
 //Enlistar autores
-
 const autoresList = async(db) =>{
-    const querySnapshot = await getDocs(collection(db, "biblioteca/Matematicas"));
-    const genList = querySnapshot.docs.map(doc => doc.id)
-    console.log(genList)
+    const querySnapshot = await getDocs(collection(db, "autores"));
+    const autorList = querySnapshot.docs.map(doc => doc.id)
+    return autorList
 }
 
-
-autoresList(app.db)
 //Enlistar titulos
 
-
-/*
 module.exports = {
     bookList, generoList, autoresList
 }
-*/

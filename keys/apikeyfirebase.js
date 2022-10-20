@@ -1,5 +1,4 @@
 const firebase = require('firebase/app');
-
 const firestore = require('firebase/firestore/lite');
 
 const firebaseConfig = {
