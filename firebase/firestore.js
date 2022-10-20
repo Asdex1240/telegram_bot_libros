@@ -1,6 +1,6 @@
 //App solo la usamos para efecto de pruebas :)
-//const app = require('../keys/apikeyfirebase');
-const { collection, getDocs,  } = require('firebase/firestore/lite');
+const app = require('../keys/apikeyfirebase');
+const { collection, getDocs } = require('firebase/firestore/lite');
 
 
 //Buscar por medio de genero y autor
@@ -18,11 +18,19 @@ const generoList = async(db) => {
 }
 //Enlistar autores
 
+const autoresList = async(db) =>{
+    const querySnapshot = await getDocs(collection(db, "biblioteca/Matematicas"));
+    const genList = querySnapshot.docs.map(doc => doc.id)
+    console.log(genList)
+}
+
+
+autoresList(app.db)
 //Enlistar titulos
 
 
-
+/*
 module.exports = {
-    bookList, generoList
+    bookList, generoList, autoresList
 }
-
+*/
