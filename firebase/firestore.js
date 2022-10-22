@@ -2,12 +2,29 @@
 const app = require('../keys/apikeyfirebase');
 const { collection, getDocs } = require('firebase/firestore/lite');
 
-
 //Buscar por medio de autor
-const searchBook = async(autor, db) => {
-    const x = generoList(db)
-    return x
+async function search(db){
+    const genList = await generoList(db)   
+    let y = []
+    let x
+    genList.forEach(async gen =>{
+        x = await bookList(db, gen, 'Desconocido')
+        console.log(x)
+    })
 }
+
+/*const searchBook = async(db) => {
+
+}*/
+
+const bookList = async(db, genero, autor) => {
+    let path = `biblioteca/${genero}/${autor}`
+    const booksCol = collection(db, path);
+    const bookSnapshot = await getDocs(booksCol);
+    let bookList = bookSnapshot.docs.map(doc => doc.data());
+    return bookList
+}
+
 //Enlistar generos
 const generoList = async(db) =>{
     const querySnapshot = await getDocs(collection(db, "biblioteca"));
@@ -22,9 +39,10 @@ const autoresList = async(db) =>{
     return autorList
 }
 
-//Enlistar titulos
+search(app.db)
+
 /*
 module.exports = {
-    bookList, generoList, autoresList
+    bookList, generoList, autoresList, searchBook
 }
 */
