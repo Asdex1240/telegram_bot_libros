@@ -1,21 +1,36 @@
 //App solo la usamos para efecto de pruebas :)
-const app = require('../keys/apikeyfirebase');
-const { collection, getDocs } = require('firebase/firestore/lite');
+//const app = require('../keys/apikeyfirebase');
+const { collection, getDocs, getDoc, query, collectionGroup, doc } = require('firebase/firestore/lite');
 
 //Buscar por medio de autor
-async function search(db){
+async function search(db, autor){
     const genList = await generoList(db)   
-    let y = []
-    let x
-    genList.forEach(async gen =>{
-        x = await bookList(db, gen, 'Desconocido')
-        console.log(x)
-    })
+    let i = 0
+    let j = 0
+    let allBooksArray = []
+    for(i=0; i<genList.length; i++){
+        genListArray = await bookList(db, genList[i], autor)
+        for(j=0; j<genListArray.length; j++){
+            allBooksArray.push(genListArray[j])
+        }      
+    }
+    return allBooksArray
 }
 
-/*const searchBook = async(db) => {
-
-}*/
+//Buscar por medio de genero
+async function searchByGenero(db, genero){
+    const autores = await autoresList(db)
+    let librosList = []
+    let i = 0
+    let j = 0
+    for(i; i<autores.length; i++){
+        let bookListA = await bookList(db, genero, autores[i])
+        for(j=0; j<bookListA.length; j++){
+            librosList.push(bookListA[j])
+        }   
+    }
+    return librosList
+}
 
 const bookList = async(db, genero, autor) => {
     let path = `biblioteca/${genero}/${autor}`
@@ -39,10 +54,7 @@ const autoresList = async(db) =>{
     return autorList
 }
 
-search(app.db)
-
-/*
 module.exports = {
-    bookList, generoList, autoresList, searchBook
+    bookList, generoList, autoresList, search, searchByGenero
 }
-*/
+
